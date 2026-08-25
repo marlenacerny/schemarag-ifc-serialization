@@ -3,7 +3,7 @@
 Given the localized path groups from :mod:`context_graph`, this module walks the target
 instances, aggregates their values (strings -> deduplicated list; numerics ->
 {min, median, max}), applies property-set grouping by Name, and flattens each summary
-into JSONPath expressions. Output matches the listings in Appendix A / B.
+into JSONPath expressions.
 """
 
 from __future__ import annotations
@@ -50,15 +50,20 @@ def _walk(inst, path: Tuple[str, ...], sigma: Dict[Tuple[str, ...], List[Any]],
     if depth >= MAX_WALK_DEPTH:
         return
     for attr, value in inst.get_info(recursive=False).items():
-        if attr in SKIP_ATTRS or value is None:  # null-attribute handling
+        if attr in SKIP_ATTRS:
             continue
         key = path + (attr,)
+        # null / empty attribute: register the location with an empty value set
+        if value is None or (isinstance(value, (list, tuple)) and len(value) == 0):
+            sigma.setdefault(key, [])
+            continue
         for v in _each(value):
             if v is None:
+                sigma.setdefault(key, [])
                 continue
             if _atomic(v):
                 sigma.setdefault(key, []).append(_unwrap(v))
-            elif v.id() not in visited:  # cycle / duplicate-path handling
+            elif v.id() not in visited:  # cycle / duplicate-path guard
                 _walk(v, key, sigma, visited | {v.id()}, depth + 1)
 
 
@@ -70,7 +75,7 @@ def _schema_for_class(instances) -> Dict[Tuple[str, ...], List[Any]]:
 
 
 # --------------------------------------------------------------------------- #
-# Value aggregation + serialization (Section 3.2.2, matches Appendix A)
+# Value aggregation + serialization
 # --------------------------------------------------------------------------- #
 def _aggregate(values: List[Any]) -> Any:
     """Numeric attrs -> {min, median, max}; otherwise a deduplicated string list."""
@@ -92,12 +97,12 @@ def _nest(sigma: Dict[Tuple[str, ...], List[Any]]) -> Dict[str, Any]:
 
 
 def _wrap_property(agg: Any) -> Any:
-    """Numeric props stay bare {min,median,max}; others get a 'values' key (Listing 2)."""
+    """Numeric props stay bare {min,median,max}; others get a 'values' key."""
     return agg if isinstance(agg, dict) else {"values": agg}
 
 
 def _propertyset_schema(instances) -> Dict[str, Any]:
-    """Property-set grouping by Name, rendered as HasPropertySets.items[i] (Listing 2)."""
+    """Property-set grouping by Name, rendered as HasPropertySets.items[i]."""
     by_name: Dict[str, Dict[str, List[Any]]] = {}
     order: List[str] = []
     for pset in sorted(instances, key=lambda p: (getattr(p, "Name", None) or "", p.id())):
@@ -107,8 +112,11 @@ def _propertyset_schema(instances) -> Dict[str, Any]:
             order.append(name)
         for prop in getattr(pset, "HasProperties", None) or []:
             pname = getattr(prop, "Name", None)
+            if pname is None:
+                continue  # cannot key an unnamed property
             nominal = getattr(prop, "NominalValue", None)
-            if pname is None or nominal is None:
+            if nominal is None:
+                by_name[name].setdefault(pname, [])  # named but unpopulated
                 continue
             by_name[name].setdefault(pname, []).append(_unwrap(nominal))
 
