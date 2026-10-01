@@ -1,0 +1,33 @@
+{
+  "seed": "IfcFlowSegment",
+  "source_path": [
+    ["IfcFlowSegment", "IfcRelDefinesByType", "IfcPipeSegmentType"]
+  ],
+  "hop": 1,
+  "target_class": "IfcPipeSegmentType",
+  "schema": {
+    "IfcPipeSegmentType": {
+      "Name": [
+        "FamilyA:TypeA_1",
+        "FamilyA:TypeA_2",
+        "FamilyA:TypeA_3",
+        "FamilyA:TypeA_4",
+        "FamilyB:TypeB_1"
+      ],
+      "Tag": {
+        "min": 100000,
+        "median": 500000,
+        "max": 900000
+      },
+      "PredefinedType": [
+        "NOTDEFINED",
+        "FLEXIBLESEGMENT"
+      ]
+    }
+  },
+  "paths": [
+    "$.schema.IfcPipeSegmentType.Name",
+    "$.schema.IfcPipeSegmentType.Tag",
+    "$.schema.IfcPipeSegmentType.PredefinedType"
+  ]
+}

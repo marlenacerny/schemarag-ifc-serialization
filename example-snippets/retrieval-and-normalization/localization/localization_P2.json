@@ -1,0 +1,10 @@
+[
+  {
+    "path": "$.schema.HasPropertySets.ProjectSpecificPropertySet.items[0].HasProperties.06 Werkstoff.values",
+    "rank": 1
+  },
+  {
+    "path": "$.schema.HasPropertySets.PsetBaseQuantities.items[1].HasProperties.Typ.values",
+    "rank": 2
+  }
+]

@@ -1,0 +1,57 @@
+{
+  "seed": "IfcFlowSegment",
+  "source_path": [
+    ["IfcFlowSegment", "IfcRelDefinesByProperties", "IfcPropertySet"]
+  ],
+  "hop": 1,
+  "target_class": "IfcPropertySet",
+  "schema": {
+    "HasPropertySets": {
+      "class": "IfcPropertySet",
+      "items": [
+        {
+          "class": "IfcPropertySet",
+          "name": "ProjectSpecificPropertySet",
+          "item_index": 0,
+          "HasProperties": {
+            "01 GUID": { "values": ["ID_001", "ID_002", "..."] },
+            "02 GebäudeID": { "values": ["Building_A"] },
+            "03 GeschossID": { "values": ["Level_01", "Level_02", "..."] },
+            "05 eBKP-H code": { "values": ["Code_A", "Code_B"] },
+            "06 Werkstoff": { "values": ["Mat_Code_A", "Mat_Code_B", "..."] },
+            "07 Komponentenname": { "values": ["Component_Type_A"] },
+            "14 Code Ausbau": { "values": ["Finish_Category_A"] }
+          }
+        },
+        {
+          "class": "IfcPropertySet",
+          "name": "PsetBaseQuantities",
+          "item_index": 1,
+          "HasProperties": {
+            "Grösse": { "values": ["Size_A", "Size_B", "..."] },
+            "Dämmung": { "values": ["Insulation_A", "Insulation_B", "..."] },
+            "Länge": { "min": 0.25, "median": 39.31, "max": 4192.88 },
+            "Ebene": { "values": ["Level_01", "Level_02", "..."] },
+            "Systemtyp": { "values": ["SystemType_A", "SystemType_B", "..."] },
+            "Typ": { "values": ["FamilyA:TypeA_1", "FamilyB:TypeB_1", "..."] }
+          }
+        }
+      ]
+    }
+  },
+  "paths": [
+    "$.schema.HasPropertySets.items[0].HasProperties.01 GUID.values",
+    "$.schema.HasPropertySets.items[0].HasProperties.02 GebäudeID.values",
+    "$.schema.HasPropertySets.items[0].HasProperties.03 GeschossID.values",
+    "$.schema.HasPropertySets.items[0].HasProperties.05 eBKP-H code.values",
+    "$.schema.HasPropertySets.items[0].HasProperties.06 Werkstoff.values",
+    "$.schema.HasPropertySets.items[0].HasProperties.07 Komponentenname.values",
+    "$.schema.HasPropertySets.items[0].HasProperties.14 Code Ausbau.values",
+    "$.schema.HasPropertySets.items[1].HasProperties.Grösse.values",
+    "$.schema.HasPropertySets.items[1].HasProperties.Dämmung.values",
+    "$.schema.HasPropertySets.items[1].HasProperties.Länge",
+    "$.schema.HasPropertySets.items[1].HasProperties.Ebene.values",
+    "$.schema.HasPropertySets.items[1].HasProperties.Systemtyp.values",
+    "$.schema.HasPropertySets.items[1].HasProperties.Typ.values"
+  ]
+}

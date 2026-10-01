@@ -1,0 +1,20 @@
+[
+  {
+    "source_path": "P2",
+    "path": "$.schema.HasPropertySets.ProjectSpecificPropertySet.items[0].HasProperties.06 Werkstoff.values",
+    "values": ["Mat_Code_A", "Mat_Code_B", "..."],
+    "new_rank": 1
+  },
+  {
+    "source_path": "P4",
+    "path": "$.schema.IfcMaterial.Name.values",
+    "values": ["MaterialType_A", "MaterialType_B", "..."],
+    "new_rank": 2
+  },
+  {
+    "source_path": "P2",
+    "path": "$.schema.HasPropertySets.PsetBaseQuantities.items[1].HasProperties.Typ.values",
+    "values": ["FamilyA:TypeA_1", "FamilyB:TypeB_1", "..."],
+    "new_rank": 3
+  }
+]

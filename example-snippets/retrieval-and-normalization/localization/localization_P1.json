@@ -1,0 +1,6 @@
+[
+  {
+    "path": "$.schema.IfcPipeSegmentType.Name.values",
+    "rank": 1
+  }
+]

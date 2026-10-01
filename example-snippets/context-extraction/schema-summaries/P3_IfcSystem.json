@@ -1,0 +1,26 @@
+{
+  "seed": "IfcFlowSegment",
+  "source_path": [
+    ["IfcFlowSegment", "IfcRelAssignsToGroup", "IfcSystem"]
+  ],
+  "hop": 1,
+  "target_class": "IfcSystem",
+  "schema": {
+    "IfcSystem": {
+      "Name": [
+        "System_001",
+        "System_002",
+        "..."
+      ],
+      "ObjectType": [
+        "SystemType_A",
+        "SystemType_B",
+        "..."
+      ]
+    }
+  },
+  "paths": [
+    "$.schema.IfcSystem.Name",
+    "$.schema.IfcSystem.ObjectType"
+  ]
+}

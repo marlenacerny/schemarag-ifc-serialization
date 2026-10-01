@@ -1,0 +1,6 @@
+[
+  {
+    "path": "$.schema.IfcMaterial.Name.values",
+    "rank": 1
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "seed": "IfcFlowSegment",
+  "source_path": [
+    ["IfcFlowSegment", "IfcRelDefinesByType", "IfcPipeSegmentType"],
+    ["IfcPipeSegmentType", "IfcRelAssociatesMaterial", "IfcMaterial"]
+  ],
+  "hop": 2,
+  "target_class": "IfcMaterial",
+  "schema": {
+    "IfcMaterial": {
+      "Name": [
+        "MaterialType_A",
+        "MaterialType_B",
+        "..."
+      ]
+    }
+  },
+  "paths": [
+    "$.schema.IfcMaterial.Name"
+  ]
+}
